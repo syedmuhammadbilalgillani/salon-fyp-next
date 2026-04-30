@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import { toast } from "sonner";
-import { ChevronLeft, CheckCircle, Sparkles, RefreshCw, Loader2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { GeneratedLooksGrid } from "@/components/ai-studio/GeneratedLooksGrid";
 import { ImageSourceSelector } from "@/components/ai-studio/ImageSourceSelector";
 import { PreferencesForm } from "@/components/ai-studio/PreferencesForm";
-import { GeneratedLooksGrid } from "@/components/ai-studio/GeneratedLooksGrid";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { aiPreferencesSchema } from "@/lib/validations";
 import type { AIGeneratedLook } from "@/types";
-import type { AIPreferencesInput } from "@/lib/validations";
+import { CheckCircle, ChevronLeft, Loader2, RefreshCw, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import z from "zod";
 
 type Step = 1 | 2 | 3;
 
@@ -78,7 +79,7 @@ export default function AIStudioPage() {
     setStep(2);
   };
 
-  const handleGenerate = async (preferences: AIPreferencesInput) => {
+  const handleGenerate = async (preferences: z.input<typeof aiPreferencesSchema>) => {
     if (!clientImageUrl) { toast.error("No image uploaded"); return; }
     setIsGenerating(true);
     setError(null);

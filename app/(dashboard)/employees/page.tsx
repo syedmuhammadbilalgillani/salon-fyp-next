@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Employee } from "@/types";
+import { Plus } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const ROLE_FILTERS = ["all", "makeup_artist", "hair_stylist", "stylist", "receptionist", "salon_admin"];
 
@@ -19,12 +19,14 @@ const roleColors: Record<string, string> = {
 };
 
 export default function EmployeesPage() {
-  const [employees, setEmployees] = useState<Record<string, unknown>[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [roleFilter, setRoleFilter] = useState("all");
 
   useEffect(() => {
-    setLoading(true);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
     const url = roleFilter === "all" ? "/api/employees" : `/api/employees?role=${roleFilter}`;
     fetch(url).then((r) => r.json()).then((d) => { setEmployees(Array.isArray(d) ? d : []); setLoading(false); });
   }, [roleFilter]);

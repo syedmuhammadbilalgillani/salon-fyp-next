@@ -23,9 +23,20 @@ const eventColors: Record<string, string> = {
   engagement: "bg-pink-100 text-pink-800",
   other: "bg-gray-100 text-gray-800",
 };
-
+export interface EmployeeWorkLog {
+  id: string;
+  createdAt: string;
+  clientId: string;
+  clientName: string;
+  eventType: string;
+  employeeId: string;
+  employeeName: string;
+  employeeRole: string;
+  workType: string;
+  description: string;
+}
 export default function WorkHistoryPage() {
-  const [logs, setLogs] = useState<Record<string, unknown>[]>([]);
+  const [logs, setLogs] = useState<EmployeeWorkLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [employees, setEmployees] = useState<Record<string, string>[]>([]);
@@ -49,7 +60,11 @@ export default function WorkHistoryPage() {
       .then((d) => { setLogs(Array.isArray(d.data) ? d.data : []); setLoading(false); });
   }, [page, filters]);
 
-  useEffect(() => { fetchLogs(); }, [fetchLogs]);
+  useEffect(() => {
+    setTimeout(() => {
+      fetchLogs();
+    }, 1000);
+  }, [fetchLogs]);
 
   const clearFilters = () => setFilters({ employeeId: "", from: "", to: "", eventType: "", workType: "" });
 
@@ -132,7 +147,7 @@ export default function WorkHistoryPage() {
             {!loading && logs.length === 0 && (
               <tr><td colSpan={6} className="px-4 py-10 text-center text-gray-400">No work history found</td></tr>
             )}
-            {!loading && logs.map((log) => (
+            {!loading && logs.map((log: EmployeeWorkLog) => (
               <tr key={log.id as string} className="hover:bg-gray-50">
                 <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
                   {log.createdAt ? format(new Date(log.createdAt as string), "MMM d, p") : "—"}

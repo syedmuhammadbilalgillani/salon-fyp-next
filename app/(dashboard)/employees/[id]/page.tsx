@@ -22,6 +22,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ROLE_COLORS, ROLE_LABELS, type UserRole } from "@/lib/permissions";
+import { Employee } from "@/types";
 
 const statusColors: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
@@ -104,9 +105,9 @@ export default function EmployeeDetailPage() {
 
   if (!data) return <div className="p-6 text-gray-500">Employee not found</div>;
 
-  const emp = data.employee as Record<string, unknown>;
-  const bookingsList = data.bookings as Record<string, unknown>[];
-  const workLogs = data.workLogs as Record<string, unknown>[];
+  const emp = data.employee as Employee;
+  const bookingsList = data.bookings as any[]; // TODO: fix this
+  const workLogs = data.workLogs as any[]; // TODO: fix this
   const hasAccount = !!emp.userId;
 
   return (

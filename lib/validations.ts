@@ -68,5 +68,5 @@ export const aiPreferencesSchema = z.object({
 export type LoginInput = z.infer<typeof loginSchema>;
 export type ClientInput = z.infer<typeof clientSchema>;
 export type BookingInput = z.infer<typeof bookingSchema>;
-export type EmployeeInput = z.infer<typeof employeeSchema>;
-export type AIPreferencesInput = z.infer<typeof aiPreferencesSchema>;
+export type EmployeeInput = z.input<typeof employeeSchema>;
+export type EmployeeParsed = z.infer<typeof employeeSchema>; // optional, if you want the output type tooexport type AIPreferencesInput = z.infer<typeof aiPreferencesSchema>;

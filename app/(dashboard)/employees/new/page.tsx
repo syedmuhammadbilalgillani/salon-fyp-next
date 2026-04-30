@@ -12,12 +12,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import z from "zod";
 
 const ROLES = ["makeup_artist", "hair_stylist", "stylist", "receptionist", "salon_admin"];
 
 export default function NewEmployeePage() {
   const router = useRouter();
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<EmployeeInput>({
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<z.input<typeof employeeSchema>>({
     resolver: zodResolver(employeeSchema),
     defaultValues: { experienceYears: 0, status: "active" },
   });

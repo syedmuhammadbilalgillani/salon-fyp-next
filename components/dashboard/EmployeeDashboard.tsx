@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { format, isToday, isFuture } from "date-fns";
-import { Calendar, CheckCircle, ClipboardList, Sparkles } from "lucide-react";
+import { EmployeeWorkLog } from "@/app/(dashboard)/work-history/page";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ROLE_LABELS, ROLE_COLORS, type UserRole } from "@/lib/permissions";
+import { ROLE_COLORS, ROLE_LABELS, type UserRole } from "@/lib/permissions";
+import { Employee } from "@/types";
+import { format, isFuture, isToday } from "date-fns";
+import { Calendar, CheckCircle, ClipboardList, Sparkles } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const statusColors: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
@@ -69,9 +70,9 @@ export function EmployeeDashboard() {
     );
   }
 
-  const emp = data?.employee as Record<string, unknown>;
+  const emp = data?.employee as Employee;
   const bookings = (data?.bookings as Record<string, unknown>[]) ?? [];
-  const workLogs = (data?.workLogs as Record<string, unknown>[]) ?? [];
+  const workLogs = (data?.workLogs as EmployeeWorkLog[]) ?? [];
   const stats = data?.stats as Record<string, number>;
 
   const upcomingBookings = bookings.filter(

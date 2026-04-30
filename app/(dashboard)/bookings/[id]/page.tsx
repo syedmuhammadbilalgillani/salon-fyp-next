@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Client } from "@/types";
 
 const statusColors: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
@@ -56,7 +57,7 @@ export default function BookingDetailPage() {
   if (!data) return <div className="p-6 text-gray-500">Booking not found</div>;
 
   const booking = data.booking as Record<string, unknown>;
-  const client = data.client as Record<string, unknown>;
+  const client = data.client as Client;
   const emps = data.employees as Record<string, unknown>[];
   const services = data.services as Record<string, unknown>[];
   const looks = data.looks as Record<string, unknown>[];
@@ -161,7 +162,7 @@ export default function BookingDetailPage() {
                     <CheckCircle className="w-4 h-4" />
                     Final Look Selected
                   </div>
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden">
+                  <div className="aspect-3/4 rounded-lg overflow-hidden">
                     <img src={finalLook.imageUrl as string} alt="Final Look" className="w-full h-full object-cover" />
                   </div>
                   <Link href={`/ai-studio/${id}`}>
