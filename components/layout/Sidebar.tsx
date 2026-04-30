@@ -35,6 +35,7 @@ const ICON_MAP = {
   Calendar,
   UserCheck,
   ClipboardList,
+  Scissors,
 } as const;
 
 function buildNavItems(role: string) {
@@ -65,6 +66,10 @@ function buildNavItems(role: string) {
 
   if (PERMISSIONS.canViewEmployees(role)) {
     items.push({ label: "Employees", href: "/employees", icon: "UserCheck" });
+  }
+
+  if (PERMISSIONS.isAdmin(role)) {
+    items.push({ label: "Services", href: "/services", icon: "Scissors" });
   }
 
   items.push({

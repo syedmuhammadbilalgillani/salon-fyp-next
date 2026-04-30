@@ -57,6 +57,14 @@ export const employeeSchema = z.object({
   notes: z.string().optional(),
 });
 
+export const serviceSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  description: z.string().optional().or(z.literal("")),
+  price: z.coerce.number().positive("Price must be greater than 0"),
+  durationMinutes: z.coerce.number().int().min(1).max(1440),
+  isActive: z.boolean().optional(),
+});
+
 export const aiPreferencesSchema = z.object({
   makeupStyle: z.string().min(1, "Select a makeup style"),
   hairstyle: z.string().min(1, "Select a hairstyle"),
@@ -69,4 +77,7 @@ export type LoginInput = z.infer<typeof loginSchema>;
 export type ClientInput = z.infer<typeof clientSchema>;
 export type BookingInput = z.infer<typeof bookingSchema>;
 export type EmployeeInput = z.input<typeof employeeSchema>;
-export type EmployeeParsed = z.infer<typeof employeeSchema>; // optional, if you want the output type tooexport type AIPreferencesInput = z.infer<typeof aiPreferencesSchema>;
+export type EmployeeParsed = z.infer<typeof employeeSchema>;
+export type ServiceInput = z.input<typeof serviceSchema>;
+export type ServiceParsed = z.infer<typeof serviceSchema>;
+export type AIPreferencesInput = z.infer<typeof aiPreferencesSchema>;
