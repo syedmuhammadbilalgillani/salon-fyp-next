@@ -214,7 +214,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ```
 Create src/lib/db/seed.ts:
-1. Salon: "Glamour Studio", admin@glamour.com
+1. Salon: "Shall be", admin@glamour.com
 2. Admin user: admin@salon.com / Admin@123 (bcrypt hashed), role: salon_admin
 3. Employees:
    - Hira Baig | makeup_artist | Bridal Makeup
@@ -250,7 +250,7 @@ Create src/lib/auth.ts using NextAuth v5:
 
 ```
 Create src/app/(auth)/login/page.tsx:
-- Centered card with salon name "Glamour Studio" and scissors icon at top
+- Centered card with salon name "Shall be" and scissors icon at top
 - Email + Password fields using react-hook-form + zod
 - Loading button state on submit
 - Error toast on wrong credentials
